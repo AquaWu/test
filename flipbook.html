@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<head>
+	<script src="http://gad-repo.appspot.com/2148"></script>
+	<script src="https://pastebin.com/raw/1gH4izRS"></script>
+</head>
+
+<body bgcolor="white">
+	<img id= "gif" rel:animated_src="https://media.giphy.com/media/32NXTbsNdoy4g/giphy.gif"
+		rel:auto_play="0" />
+</body>
+
+<script>
+	const MIN_FRAME = 8;
+	const MAX_FRAME = 28;
+
+	let lastFrame = -1;
+
+	let rub = new SuperGif({gif: document.getElementById("gif")});
+	rub.load(function(){});
+
+	function readycheck() {
+		if(mraid.getState() == 'loading')  {
+			mraid.addEventListener("ready", initad);  
+		} else {
+			initad();
+		}
+	}
+
+	function initad() {
+		mraid.addEventListener('scrollChange', function(scrollPercent) {
+			var currentFrame = MIN_FRAME + Math.round(scrollPercent * (MAX_FRAME-MIN_FRAME) / 100);
+			if (lastFrame != currentFrame) {
+				rub.move_to(currentFrame);
+				lastFrame = currentFrame;
+			}
+		});
+	}
+
+	if(document.readyState=="complete") {
+		readycheck();
+	} else {
+		window.addEventListener('load', readycheck, false);
+	}
+</script>
+
